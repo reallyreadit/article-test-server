@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript">
+		function log(message) {
+			console.log(new Date().toISOString() + ': ' + message);
+		}
+		log('head script');
+		document.addEventListener('readystatechange', function () {
+			log('readystatechange - ' + document.readyState);
+		});
+		document.addEventListener('DOMContentLoaded', function () {
+			log('DOMContentLoaded');
+		});
+	</script>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - article-test-server</title>
+	<link rel="icon" type="image/x-icon" href="http://article-test.dev.reallyread.it/Assets/images/favicon.ico" />
+	<link rel="stylesheet" href="http://article-test.dev.reallyread.it/Assets/css/site.css" type="text/css" />
+</head>
+<body>
+	<header>
+		<h1>article-test-server</h1>
+		<nav>
+			<ol>
+				<li>
+					<a href="/">Home</a>
+				</li>
+				<li>
+					<a href="/Home/About">About</a>
+				</li>
+				<li>
+					<a href="/Home/Contact">Contact</a>
+				</li>
+			</ol>
+		</nav>
+	</header>
+	<main>
+		@RenderBody()
+	</main>
+	<iframe src="http://article-test.dev.reallyread.it/Home/FooterAd">Iframe could not be displayed</iframe>
+	<footer>
+		<p>&copy; 2018 - article-test-server</p>
+	</footer>
+	<script src="http://article-test.dev.reallyread.it/Assets/js/site.js"></script>
+	<script type="text/javascript">
+		log('body script');
+		(function () {
+			const mainEl = document.getElementsByTagName('main')[0];
+			const newEl = document.createElement('div');
+			newEl.style.backgroundColor = 'blue';
+			newEl.style.color = 'white';
+			newEl.style.padding = '10px';
+			newEl.style.margin = '10px';
+			newEl.style.textAlign = 'center';
+			newEl.textContent = 'Element inserted from inline script';
+			mainEl.insertBefore(newEl, mainEl.firstChild);
+		}());
+	</script>
+</body>
+</html>
