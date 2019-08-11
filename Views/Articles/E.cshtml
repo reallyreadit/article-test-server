@@ -5,8 +5,11 @@
 
 <article itemscope itemtype="http://schema.org/Article">
 	<h2 itemprop="name headline">Article E</h2>
-	<h3>Binary text content clusters</h3>
+	<h3>Binary text content clusters, lazy image</h3>
 	<h4>
+		<div itemprop="author" itemscope itemtype="http://schema.org/Person">
+			<span itemprop="name">Jeff Camera</span>
+		</div>
 		Published: <time datetime="2019-08-05T00:00:00-04:00" itemprop="datePublished">August 5, 2019</time>
 	</h4>
 	<section>
@@ -20,10 +23,26 @@
 	</section>
 	<section>
 		<p>Aliquam ultrices mollis sem, id porttitor felis aliquet vitae. Mauris efficitur blandit ex et ornare. Vivamus iaculis elit id mauris cursus aliquam. Sed rhoncus ullamcorper vestibulum. Phasellus lacinia augue in purus sollicitudin, eu elementum ex malesuada. Quisque eu ex nisl. Vivamus vehicula risus consectetur, facilisis ligula vel, elementum mi. Maecenas ac tellus non nunc auctor maximus. Suspendisse ante ipsum, aliquet a erat venenatis, blandit porttitor sem. Praesent vestibulum facilisis nisl, in pharetra urna accumsan eget.</p>
+		<div class="eager-image">
+			<img src="/Assets/images/vincent-van-zalinge-407193-unsplash.jpg?@DateTime.Now.ToFileTime()" />
+			<div class="caption">Eager Image</div>
+			<span class="attribution">Readup</span>
+		</div>
 		<p>Integer id tristique sem. Morbi dui lorem, pharetra id dapibus a, ornare eu risus. Pellentesque eu viverra tortor. Pellentesque ut mi sit amet nisl feugiat lobortis iaculis in ex. Suspendisse potenti. Fusce imperdiet dui tortor, eu malesuada neque malesuada et. Nunc dapibus odio in mi feugiat, vitae mollis odio rutrum. Aliquam sit amet feugiat ipsum, id convallis turpis. Etiam laoreet arcu id arcu pellentesque, quis faucibus dui sollicitudin. Aliquam non urna vitae nibh viverra euismod facilisis sit amet nulla. Vivamus eget felis nunc. Etiam luctus dolor a metus eleifend sodales. Phasellus non viverra ante.</p>
 		<p>Donec diam orci, rutrum fringilla libero ac, laoreet faucibus leo. Sed bibendum eu nisl ac efficitur. Maecenas dui enim, feugiat eget ornare quis, lacinia ac nibh. Nulla laoreet id mauris quis ornare. In vitae massa leo. Curabitur congue pretium feugiat. Donec eget tellus interdum, consequat nulla non, pellentesque urna. Praesent sit amet turpis sapien. Donec dignissim et nunc at elementum. Aenean mollis sed mauris tincidunt efficitur. Nulla consectetur at lectus a scelerisque. Nam rhoncus iaculis dictum. Nam fringilla ante sit amet pharetra pulvinar.</p>
 		<p>Aliquam ultrices mollis sem, id porttitor felis aliquet vitae. Mauris efficitur blandit ex et ornare. Vivamus iaculis elit id mauris cursus aliquam. Sed rhoncus ullamcorper vestibulum. Phasellus lacinia augue in purus sollicitudin, eu elementum ex malesuada. Quisque eu ex nisl. Vivamus vehicula risus consectetur, facilisis ligula vel, elementum mi. Maecenas ac tellus non nunc auctor maximus. Suspendisse ante ipsum, aliquet a erat venenatis, blandit porttitor sem. Praesent vestibulum facilisis nisl, in pharetra urna accumsan eget.</p>
 		<p>Vestibulum interdum lobortis odio, sit amet dignissim eros fringilla vel. Sed placerat sodales ullamcorper. Nunc ac orci ac diam cursus dapibus sed sed sem. Donec sit amet ornare odio. Nullam dictum felis velit, a egestas velit semper quis. Aliquam eget tortor in magna malesuada lacinia eu id nunc. Proin in risus nec diam interdum fermentum. Praesent vel commodo lacus. Aenean sit amet consectetur dolor.</p>
+		<div class="img-wrapper">
+			<div>
+				<figure>
+					<postload-img data-src="/Assets/images/vincent-van-zalinge-1107091-unsplash.jpg?@DateTime.Now.ToFileTime()"></postload-img>
+				</figure>
+			</div>
+			<div class="caption">Lazy Image</div>
+			<div class="attribution">
+				<span class="credit">Readup</span>
+			</div>
+		</div>
 		<p>Donec diam orci, rutrum fringilla libero ac, laoreet faucibus leo. Sed bibendum eu nisl ac efficitur. Maecenas dui enim, feugiat eget ornare quis, lacinia ac nibh. Nulla laoreet id mauris quis ornare. In vitae massa leo. Curabitur congue pretium feugiat. Donec eget tellus interdum, consequat nulla non, pellentesque urna. Praesent sit amet turpis sapien. Donec dignissim et nunc at elementum. Aenean mollis sed mauris tincidunt efficitur. Nulla consectetur at lectus a scelerisque. Nam rhoncus iaculis dictum. Nam fringilla ante sit amet pharetra pulvinar.</p>
 	</section>
 	<footer>
@@ -33,3 +52,23 @@
 		</ol>
 	</footer>
 </article>
+<script type="text/javascript">
+	var viewportObserver = new IntersectionObserver(
+		(entries, observer) => {
+			entries.forEach(
+				entry => {
+					if (entry.isIntersecting) {
+						const img = document.createElement('img');
+						img.src = entry.target.getAttribute('data-src');
+						observer.unobserve(entry.target);
+						entry.target.replaceWith(img);
+					}
+				}
+			);
+		},
+		{
+			rootMargin: '0px 0px 200px 0px'
+		}
+	);
+	viewportObserver.observe(document.getElementsByTagName('postload-img')[0]);
+</script>
