@@ -46,6 +46,14 @@ namespace article_test_server {
 						}
 					)
 					.MapRoute(
+						name: "identity",
+						template: "Identity/Assign",
+						defaults: new {
+							Action = "Assign",
+							Controller = "Identity"
+						}
+					)
+					.MapRoute(
 						name: "default",
 						template: "{controller}/{view}",
 						defaults: new {
