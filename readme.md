@@ -2,12 +2,6 @@
 ## Configuration
 Create the following configuration files and modify as required. Network delay values are in milliseconds:
 
-    hosting.json
-```json
-{
-	"server.urls": "http://0.0.0.0:5002"
-}
-```
     appsettings.json
 ```json
 {
@@ -19,12 +13,19 @@ Create the following configuration files and modify as required. Network delay v
     "JavascriptFileDelay": 0
   },
   "Logging": {
-    "IncludeScopes": false,
-    "LogLevel": {
-      "Default": "Debug",
-      "System": "Information",
-      "Microsoft": "Information"
-    }
-  }
+		"LogLevel": {
+			"Default": "Information",
+			"Microsoft": "Warning",
+			"Microsoft.Hosting.Lifetime": "Information"
+		}
+	},
+	"AllowedHosts": "*",
+	"Kestrel": {
+		"Endpoints": {
+			"Http": {
+				"Url": "http://localhost:5002"
+			}
+		}
+	}
 }
 ```

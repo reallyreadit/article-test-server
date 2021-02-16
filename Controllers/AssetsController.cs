@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 
 namespace article_test_server.Controllers {
 	public class AssetsController : Controller {
-		public IActionResult Index(string path, [FromServices] IHostingEnvironment hostEnv, [FromServices] IOptions<NetworkDelayOptions> options) {
+		public IActionResult Index(string path, [FromServices] IWebHostEnvironment hostEnv, [FromServices] IOptions<NetworkDelayOptions> options) {
 			string contentType;
 			if (new FileExtensionContentTypeProvider().TryGetContentType(Path.Combine(hostEnv.WebRootPath, path), out contentType)) {
 				switch (path.Split('.').Last()) {

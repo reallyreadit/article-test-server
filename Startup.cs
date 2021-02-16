@@ -11,10 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace article_test_server {
 	public class Startup {
-		private readonly IHostingEnvironment env;
+		private readonly IWebHostEnvironment env;
 		private readonly IConfigurationRoot config;
-		public Startup(IHostingEnvironment env) {
-			// set the IHostingEnvironment
+		public Startup(IWebHostEnvironment env) {
+			// set the IWebHostEnvironment
 			this.env = env;
 			// read configuration
 			var currentDirectory = Directory.GetCurrentDirectory();
@@ -32,36 +32,37 @@ namespace article_test_server {
 			services.Configure<NetworkDelayOptions>(config.GetSection("NetworkDelay"));
 			services.AddMvc();
 		}
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 			app.UseDeveloperExceptionPage();
 
-			app.UseMvc(routes => {
-				routes
-					.MapRoute(
-						name: "assets",
-						template: "Assets/{*path}",
-						defaults: new {
-							Action = "Index",
-							Controller = "Assets"
-						}
-					)
-					.MapRoute(
-						name: "identity",
-						template: "Identity/Assign",
-						defaults: new {
-							Action = "Assign",
-							Controller = "Identity"
-						}
-					)
-					.MapRoute(
-						name: "default",
-						template: "{controller}/{view}",
-						defaults: new {
-							Action = "Index",
-							Controller = "Home",
-							View = "Index"
-						}
-					);
+			app.UseRouting();
+
+			app.UseEndpoints(routes => {
+				routes.MapControllerRoute(
+					name: "assets",
+					pattern: "Assets/{*path}",
+					defaults: new {
+						Action = "Index",
+						Controller = "Assets"
+					}
+				);
+				routes.MapControllerRoute(
+					name: "identity",
+					pattern: "Identity/Assign",
+					defaults: new {
+						Action = "Assign",
+						Controller = "Identity"
+					}
+				);
+				routes.MapControllerRoute(
+					name: "default",
+					pattern: "{controller}/{view}",
+					defaults: new {
+						Action = "Index",
+						Controller = "Home",
+						View = "Index"
+					}
+				);
 			});
 		}
 	}
