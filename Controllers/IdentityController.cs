@@ -13,7 +13,8 @@ namespace article_test_server.Controllers {
 						Domain = ".article-test.dev.readup.com",
 						Expires = DateTime.UtcNow.AddDays(180),
 						HttpOnly = true,
-						SameSite = SameSiteMode.None
+						SameSite = SameSiteMode.None,
+						Secure = true
 					}
 				);
 			}
