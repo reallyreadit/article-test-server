@@ -39,14 +39,6 @@ namespace article_test_server {
 
 			app.UseEndpoints(routes => {
 				routes.MapControllerRoute(
-					name: "assets",
-					pattern: "Assets/{*path}",
-					defaults: new {
-						Action = "Index",
-						Controller = "Assets"
-					}
-				);
-				routes.MapControllerRoute(
 					name: "identity",
 					pattern: "Identity/Assign",
 					defaults: new {
@@ -61,6 +53,14 @@ namespace article_test_server {
 						Action = "Index",
 						Controller = "Home",
 						View = "Index"
+					}
+				);
+				routes.MapControllerRoute(
+					name: "assets",
+					pattern: "Assets/{*path}",
+					defaults: new {
+						Action = "Index",
+						Controller = "Assets"
 					}
 				);
 			});
