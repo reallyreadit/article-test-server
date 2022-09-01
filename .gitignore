@@ -2,4 +2,5 @@
 /obj
 /appsettings.json
 /appsettings.*.json
+!/appsettings.docker.json
 /hosting.json
